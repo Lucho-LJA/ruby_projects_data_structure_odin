@@ -2,6 +2,11 @@ class LinkedList
     def initialize
         @list = []
     end
+    def insert_at(index,*value)
+        value.reverse!
+        value.each{|val| @list.insert(index,Node.new(val))}
+        @list.each_with_index{|node,index| if index < @list.length-1 then node.next_node = index + 1 else node.next_node = nil end}
+    end
     def to_s
         str = ""
         @list.each_with_index{|node, index| if index < @list.length then str += "(#{node.value}) -> " else str += "(#{node.value}) -> nil" end}
@@ -75,3 +80,5 @@ p list1.contains?("val5")
 p list1.find("val1")
 p list1.find("val5")
 p list1.to_s
+list1.insert_at(1,"val11","val12")
+p list1.test
