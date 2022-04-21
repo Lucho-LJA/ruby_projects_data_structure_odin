@@ -8,9 +8,9 @@ class Node
 end
 class Tree
     attr_reader :root
-    def initialize(array=[])
+    def initialize(array=[],root=nil)
         @array = array
-        @root = nil
+        @root = root
     end
     def build_tree
         @array.uniq!
@@ -29,7 +29,21 @@ class Tree
     def delete(key)
         @root = delete_rec(@root,key)
     end
+    def find(key)
+        #find_rec(@root,key)
+        Tree.new([],find_rec(@root,key))
+        
+    end
     private
+    def find_rec(root,key)
+        return nil if root == nil
+        return root if key == root.data
+        root_aux = find_rec(root.left_child, key)
+        if root_aux == nil
+            root_aux = find_rec(root.right_child, key)
+        end
+        return root_aux
+    end
     def min_val(root)
         val = root
         unless val.left_child == nil
@@ -84,8 +98,12 @@ tree1.build_tree
 #p tree1.root
 #tree1.insert(4)
 #p tree1.root
-p tree1.pretty_print
-tree1.delete(10)
-p tree1.pretty_print
-tree1.delete(40)
-p tree1.pretty_print
+tree1.pretty_print
+#tree1.delete(10)
+#p tree1.pretty_print
+#tree1.delete(40)
+#p tree1.pretty_print
+p tree1
+tree2 = tree1.find(50)
+tree2.pretty_print
+#p tree1.pretty_print
