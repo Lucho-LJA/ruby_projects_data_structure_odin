@@ -21,6 +21,11 @@ class Tree
     def insert(key)
         @root = insert_rec(@root,key)
     end
+    def pretty_print(node = @root, prefix = '', is_left = true)
+        pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
+        puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+        pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
+    end
     private
     def insert_rec(root,key)
         return Node.new(key) if root == nil
@@ -30,19 +35,24 @@ class Tree
         else 
             root.right_child = insert_rec(root.right_child,key)
         end
+        
         root
     end
     def build_tree_rec(array)
         return nil if array == []
+
         node = Node.new(array[array.length/2])
-        node.left_child = build_tree_rec(array[0...(array.length/2)])
-        node.right_child = build_tree_rec(array[(array.length/2)...(array.length-1)])
+        
+        node.left_child = build_tree_rec(array[0...array.length/2])
+        node.right_child = build_tree_rec(array[array.length/2 + 1..-1])
+        
         return node
     end
 end
-array = [1,2,3,4,5]
+array = [1,2,3,4,5,6,7,8]
 tree1 = Tree.new(array)
 tree1.build_tree
 #p tree1.root
-tree1.insert(6)
-p tree1.root
+tree1.insert(9)
+#p tree1.root
+p tree1.pretty_print
