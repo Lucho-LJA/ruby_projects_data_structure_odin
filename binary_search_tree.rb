@@ -28,24 +28,20 @@ class Tree
     end
     private
     def insert_rec(root,key)
-        return Node.new(key) if root == nil
+        return nil if root == nil
         #return @root if @root.data == key
         if key < root.data
             root.left_child = insert_rec(root.left_child,key)
         else 
             root.right_child = insert_rec(root.right_child,key)
-        end
-        
+        end 
         root
     end
     def build_tree_rec(array)
         return nil if array == []
-
         node = Node.new(array[array.length/2])
-        
         node.left_child = build_tree_rec(array[0...array.length/2])
         node.right_child = build_tree_rec(array[array.length/2 + 1..-1])
-        
         return node
     end
 end
@@ -53,6 +49,6 @@ array = [1,2,3,4,5,6,7,8]
 tree1 = Tree.new(array)
 tree1.build_tree
 #p tree1.root
-tree1.insert(9)
+tree1.insert(4)
 #p tree1.root
 p tree1.pretty_print
