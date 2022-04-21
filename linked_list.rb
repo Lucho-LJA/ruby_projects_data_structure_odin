@@ -1,6 +1,7 @@
 class LinkedList
-    def initialize
+    def initialize(*nodes)
         @list = []
+        nodes[0].each{|value| append(value)} unless nodes == []
     end
     def remove_at(index)
         @list.delete_at(index)
@@ -13,7 +14,7 @@ class LinkedList
     end
     def to_s
         str = ""
-        @list.each_with_index{|node, index| if index < @list.length then str += "(#{node.value}) -> " else str += "(#{node.value}) -> nil" end}
+        @list.each_with_index{|node, index| if index < @list.length-1 then str += "(#{node.value}) -> " else str += "(#{node.value}) -> nil" end}
         str
     end
     def find(val)
@@ -88,3 +89,5 @@ list1.insert_at(1,"val11","val12")
 p list1.test
 list1.remove_at(3)
 p list1.test
+list2 = LinkedList.new(["v2_0","v2_1","v2_3"])
+p list2.to_s
