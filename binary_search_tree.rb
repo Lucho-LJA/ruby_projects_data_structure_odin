@@ -26,7 +26,40 @@ class Tree
         puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
         pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
     end
+    def delete(key)
+        @root = delete_rec(@root,key)
+    end
     private
+    def min_val(root)
+        val = root
+        unless val.left_child == nil
+            val = val.left_child
+        end
+        val
+    end
+    def delete_rec(root,key)
+        return nil if root == nil
+        #return @root if @root.data == key
+        if key < root.data
+            root.left_child = delete_rec(root.left_child,key)
+        elsif key > root.data
+            root.right_child = delete_rec(root.right_child,key)
+        else
+            if !root.left_child
+                temp = root.right_child
+                root = nil
+                return temp
+            elsif !root.right_child
+                temp = root.left_child
+                root = nil
+                return temp
+            end
+            temp = min_val(root.right_child)
+            root.data = temp.data
+            root.right_child = delete_rec(root.right_child,temp.data)
+        end
+        root
+    end
     def insert_rec(root,key)
         return nil if root == nil
         #return @root if @root.data == key
@@ -45,10 +78,14 @@ class Tree
         return node
     end
 end
-array = [1,2,3,4,5,6,7,8]
+array = [1,5,7,10,40, 50,60]#Array.new(150) { rand(1..100) }#
 tree1 = Tree.new(array)
 tree1.build_tree
 #p tree1.root
-tree1.insert(4)
+#tree1.insert(4)
 #p tree1.root
+p tree1.pretty_print
+tree1.delete(10)
+p tree1.pretty_print
+tree1.delete(40)
 p tree1.pretty_print
