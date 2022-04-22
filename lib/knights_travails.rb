@@ -9,9 +9,19 @@ class Board
   
     def knight_moves(origin, destination)
         dest = make_tree(destination, origin)
+        path = build_path(dest)
     end
   
     private
+    def build_path(nodes,path = [])
+
+        until nodes.parent == nil
+            path << nodes.location
+            nodes = nodes.parent
+        end
+        path << nodes.location
+        path.reverse
+    end
     def find_moves(location, res = [])
         moves = [[2, 1], [1, 2], [2, -1], [1, -2], [-2, 1], [-1, 2], [-2, -1], [-1, -2]].freeze
         moves.each do |move|
