@@ -162,11 +162,13 @@ class Tree
     end
     def insert_rec(root,key)
         return nil if root == nil
-        #return @root if @root.data == key
+        return root if root.data == key
         if key < root.data
-            root.left_child = insert_rec(root.left_child,key)
+            root.left_child = insert_rec(root.left_child,key) if root.left_child
+            root.left_child = Node.new(key) if !root.left_child
         else 
-            root.right_child = insert_rec(root.right_child,key)
+            root.right_child = insert_rec(root.right_child,key) if root.right_child
+            root.right_child = Node.new(key) if !root.right_child
         end 
         root
     end
@@ -178,42 +180,3 @@ class Tree
         return node
     end
 end
-array = [1, 18, 2, 23, 54, 30, 22, 67, 72, 71, 84, 95, 74, 64,100,101]#Array.new(15) { rand(1..100) }#[1,5,7,10,40, 50,60]#
-tree1 = Tree.new(array)
-tree1.build_tree
-p tree1.array
-#p tree1.root
-#tree1.insert(4)
-#p tree1.root
-#tree1.pretty_print
-#tree1.delete(10)
-#p tree1.pretty_print
-#tree1.delete(40)
-#p tree1.pretty_print
-#p tree1
-#tree2 = tree1.find(50)
-#tree2.pretty_print
-puts "\n\n"
-tree1.pretty_print
-puts "Level order"
-p tree1.level_order
-puts "InOrder"
-p tree1.in_order
-puts "PreOrder"
-p tree1.pre_order
-puts "PostOrder"
-p tree1.post_order
-puts "Height 84"
-p tree1.height(84)
-puts "Depth 22"
-p tree1.depth(22)
-puts "Balanced?"
-tree1.delete(101)
-tree1.delete(95)
-tree1.delete(74)
-tree1.delete(71)
-tree1.pretty_print
-p tree1.balanced?
-puts "Rebalance"
-tree1.rebalance
-tree1.pretty_print
