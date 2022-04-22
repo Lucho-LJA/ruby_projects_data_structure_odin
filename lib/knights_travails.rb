@@ -6,11 +6,8 @@ class Knight
     end
 end
 class Board
-  
     def knight_moves(origin, destination)
-        dest = make_tree(destination, origin)
-        path = build_path(dest)
-        show_path(path)
+        show_path(build_path(make_tree(destination, origin)))
     end
   
     private
@@ -48,9 +45,5 @@ class Board
         end
         current
     end
-  
 end
-
-option = Board.new
-option.knight_moves([3,3],[4,3])
 
