@@ -19,12 +19,21 @@ class Tree
         @root = build_tree_rec(@array)
     end
     def insert(key)
-        @root = insert_rec(@root,key)
+        @root = insert_rec(@root,key) if @array != []
+        if @array == []
+            @array = [key]
+            build_tree
+        end
+        @root
     end
     def pretty_print(node = @root, prefix = '', is_left = true)
-        pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
-        puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
-        pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
+        if node
+            pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
+            puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+            pretty_print(node.left_child, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left_child
+        else
+            puts "└── nil"
+        end
     end
     def delete(key)
         @root = delete_rec(@root,key)
