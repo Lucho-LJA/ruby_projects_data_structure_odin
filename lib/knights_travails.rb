@@ -10,11 +10,16 @@ class Board
     def knight_moves(origin, destination)
         dest = make_tree(destination, origin)
         path = build_path(dest)
+        show_path(path)
     end
   
     private
+    def show_path(path)
+        puts "The knight went from #{path[0]} to #{path[-1]} in #{path.length - 1} moves"
+        print 'This is your path:'
+        path.each_with_index{ |x, index| if (index < path.length - 1) then print "#{x} --> "else print "#{x}\n"end}
+    end
     def build_path(nodes,path = [])
-
         until nodes.parent == nil
             path << nodes.location
             nodes = nodes.parent
