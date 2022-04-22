@@ -32,7 +32,19 @@ class Tree
     def find(key)
         #find_rec(@root,key)
         Tree.new([],find_rec(@root,key))
-        
+    end
+    def level_order(root = @root)
+        return nil if root == nil
+        output = []
+        queue = []
+        queue.push(root)
+        until queue.empty? do
+            current = queue.shift
+            output.push(current.data)
+            queue.push(current.left_child) if current.left_child
+            queue.push(current.right_child) if current.right_child
+        end
+        output
     end
     private
     def find_rec(root,key)
@@ -92,18 +104,20 @@ class Tree
         return node
     end
 end
-array = [1,5,7,10,40, 50,60]#Array.new(150) { rand(1..100) }#
+array = Array.new(15) { rand(1..100) }#[1,5,7,10,40, 50,60]#
 tree1 = Tree.new(array)
 tree1.build_tree
 #p tree1.root
 #tree1.insert(4)
 #p tree1.root
-tree1.pretty_print
+#tree1.pretty_print
 #tree1.delete(10)
 #p tree1.pretty_print
 #tree1.delete(40)
 #p tree1.pretty_print
-p tree1
-tree2 = tree1.find(50)
-tree2.pretty_print
-#p tree1.pretty_print
+#p tree1
+#tree2 = tree1.find(50)
+#tree2.pretty_print
+puts "\n\n"
+tree1.pretty_print
+p tree1.level_order
