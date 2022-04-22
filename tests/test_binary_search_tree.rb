@@ -1,4 +1,4 @@
-require './binary_search_tree'
+require './lib/binary_search_tree'
 puts "Test binary_search_tree file"
 array = Array.new(15) { rand(1..100) }#[1, 18, 2, 23, 54, 30, 22, 67, 72, 71, 84, 95, 74, 64,100,101]#[1,5,7,10,40, 50,60]#
 tree = Tree.new(array)
