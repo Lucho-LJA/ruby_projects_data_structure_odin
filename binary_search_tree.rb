@@ -7,7 +7,7 @@ class Node
     end
 end
 class Tree
-    attr_reader :root
+    attr_reader :root, :array
     def initialize(array=[],root=nil)
         @array = array
         @root = root
@@ -55,8 +55,32 @@ class Tree
     def post_order
         post_order_rec
     end
+    def height(key)
+        root = find(key)
+        height_rec(root.root)
+    end
+    def depth(key)
+        depth_rec(key) if find(key).root
+    end
 
     private
+    def depth_rec(key,root = @root, cont = 0)
+        val1 = 0
+        val2 = 0
+        return cont * 0 if !root
+        return cont + 1 if root.data == key
+        val1 = depth_rec(key,root.left_child, cont + 1)
+        val2 = depth_rec(key,root.right_child, cont + 1)
+        [val1, val2].max
+    end
+    def height_rec(root)
+        val1 = 0
+        val2 = 0
+        return 0 if !root
+        val1 = height_rec(root.left_child) + 1
+        val2 = height_rec(root.right_child) + 1
+        [val1,val2].max
+    end
     def post_order_rec(root = @root)
         return nil if root == nil
         return [root.data] if (root.left_child == nil  and root.right_child == nil)
@@ -147,9 +171,10 @@ class Tree
         return node
     end
 end
-array = Array.new(15) { rand(1..100) }#[1,5,7,10,40, 50,60]#
+array = [1, 18, 2, 23, 54, 30, 22, 67, 72, 71, 84, 95, 74, 64,100,101]#Array.new(15) { rand(1..100) }#[1,5,7,10,40, 50,60]#
 tree1 = Tree.new(array)
 tree1.build_tree
+p tree1.array
 #p tree1.root
 #tree1.insert(4)
 #p tree1.root
@@ -171,3 +196,7 @@ puts "PreOrder"
 p tree1.pre_order
 puts "PostOrder"
 p tree1.post_order
+puts "Height 84"
+p tree1.height(84)
+puts "Depth 22"
+p tree1.depth(111)
