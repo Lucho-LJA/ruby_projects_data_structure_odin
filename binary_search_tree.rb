@@ -46,7 +46,50 @@ class Tree
         end
         output
     end
+    def in_order
+        in_order_rec
+    end
+    def pre_order
+        pre_order_rec
+    end
+    def post_order
+        post_order_rec
+    end
+
     private
+    def post_order_rec(root = @root)
+        return nil if root == nil
+        return [root.data] if (root.left_child == nil  and root.right_child == nil)
+        vals = [root.data]
+        aux1 = []
+        aux2 = []
+        aux1 = post_order_rec(root.left_child) if root.left_child
+        aux2 = post_order_rec(root.right_child) if root.right_child
+        
+        aux1 + aux2 + vals
+
+    end
+    def pre_order_rec(root = @root)
+        return nil if root == nil
+        #return [root.data] if (root.left_child == nil  and root.right_child == nil)
+        vals = [root.data]
+        aux1 = []
+        aux2 = []
+        aux1 = pre_order_rec(root.left_child) if root.left_child
+        aux2 = pre_order_rec(root.right_child) if root.right_child
+        vals + aux1 + aux2
+    end
+    def in_order_rec(root = @root)
+        return nil if root == nil
+        return [root.data] if (root.left_child == nil  and root.right_child == nil)
+        vals = [root.data]
+        aux1 = []
+        aux2 = []
+        aux1 = in_order_rec(root.left_child) if root.left_child
+        aux2 = in_order_rec(root.right_child) if root.right_child
+        aux1 + vals + aux2
+
+    end
     def find_rec(root,key)
         return nil if root == nil
         return root if key == root.data
@@ -120,4 +163,11 @@ tree1.build_tree
 #tree2.pretty_print
 puts "\n\n"
 tree1.pretty_print
+puts "Level order"
 p tree1.level_order
+puts "InOrder"
+p tree1.in_order
+puts "PreOrder"
+p tree1.pre_order
+puts "PostOrder"
+p tree1.post_order
