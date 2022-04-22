@@ -65,6 +65,10 @@ class Tree
     def balanced?
         ((height(@root.left_child.data) - height(@root.right_child.data)).abs <= 1 ? true : false )
     end
+    def rebalance
+        @array = in_order
+        build_tree
+    end
 
     private
     def depth_rec(key,root = @root, cont = 0)
@@ -210,3 +214,6 @@ tree1.delete(74)
 tree1.delete(71)
 tree1.pretty_print
 p tree1.balanced?
+puts "Rebalance"
+tree1.rebalance
+tree1.pretty_print
