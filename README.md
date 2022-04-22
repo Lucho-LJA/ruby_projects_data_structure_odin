@@ -4,11 +4,11 @@ Odin Projects about 3 data structure with Ruby
 - Clone repository in local machine
 - Place at the root of cloned folder
 - Run comman to different projects
-    - LINKED LIST: ruby linked_list.
+    - LINKED LIST: ./tests/test_ruby linked_list.
     - BINARY SEARCH TREE: ruby ./tests/test_binary_search_tree.rb
 ## Description
 ### Linked List
-The [Project about Linked lists](src/linked_list.rb) is about creating of linked lists with 2 class.
+The [Project about Linked lists](src/lib/linked_list.rb) is about creating of linked lists with 2 class.
 #### Node class
 This create a Node object with the principal structure: Head (Value) and Next.
 The class is used inside the LinkedList class.
